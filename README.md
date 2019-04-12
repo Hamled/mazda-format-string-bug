@@ -1,7 +1,7 @@
 ## `printf` format string bug in Mazda Connect Infotainment System
 ### Bug Description
 The Infotainment System's UI (and possibly other software elements) crashes when a Bluetooth audio source sends
-track metadata wherein the track name (at least) includes a %n conversion specifier.
+track metadata wherein the track name (at least) includes a "%n" conversion specifier.
 
 ### Example Case
 When the track's title includes the string "99% Invisible" this triggers a crash.
@@ -22,13 +22,13 @@ Unlike every other conversion specifier (e.g. 'i' and 'd' for numbers, 's' for a
 
 Instead, it's used to calculate the total number of characters in the string prior to the %n. It then tries to store that number in a variable. This is the source of the crash (and the [source of some software vulnerabilities][2]).
 
-#### Why the '%n' crashes the program
+#### Why the "%n" crashes the program
 When the program tries to store the calculated number in a variable, and the coder never /intended/ for this to happen, then they haven't provided a variable to store the number.
 
 In that case the program (for reasons that are too much to get into) ends up trying to store it in a place where it's not allowed to (this is called a segmentation fault). Usually this results in a crash because it's unspecified how to recover from that error condition.
 
 #### Additional notes
-* Perhaps the most unusual aspect of this from a coder's perspective (this kind of bug isn't all that uncommon, unfortunately), is actually the I itself. This is a Microsoft-invented 'upgrade' to the ISO standard C format specifiers, but it's almost certainly the case that Mazda's Infotainment System does not use Windows as its operating system.
+* Perhaps the most unusual aspect of this from a coder's perspective (this kind of bug isn't all that uncommon, unfortunately), is actually the 'I' itself. This is a Microsoft-invented 'upgrade' to the ISO standard C format specifiers, but it's almost certainly the case that Mazda's Infotainment System does not use Windows as its operating system.
 
     It turns out that GCC and Clang (the two major compilers for open source software) have included the 'I' specifier as well, presumably for compatibility so people can easily move their code from Microsoft's VC++ compiler to them (and back).
 

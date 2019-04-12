@@ -27,6 +27,11 @@ When the program tries to store the calculated number in a variable, and the cod
 
 In that case the program (for reasons that are too much to get into) ends up trying to store it in a place where it's not allowed to (this is called a segmentation fault). Usually this results in a crash because it's unspecified how to recover from that error condition.
 
+#### Proof of Concept
+I wrote up a quick example of how this kind of bug looks in C code, and how the behavior lines up with what was described in the Reply All episode.
+* [Description](./proof_of_concept.md)
+* [Code](./proof_of_concept.c)
+
 #### Additional notes
 * Perhaps the most unusual aspect of this from a coder's perspective (this kind of bug isn't all that uncommon, unfortunately), is actually the 'I' itself. This is a Microsoft-invented 'upgrade' to the ISO standard C format specifiers, but it's almost certainly the case that Mazda's Infotainment System does not use Windows as its operating system.
 
